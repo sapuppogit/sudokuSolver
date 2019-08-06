@@ -181,13 +181,9 @@ bool solveSudoku(sudoku *s) {
 		for (int k=0; k<N; k++) {
 			if (s->pos[y][x][k] == 1) {
 				insVal(&tempSud, x, y, k+1);
-				cout << "value " << k+1 << " added in position [" << x << ", " << y << "]" << endl;
 				if (solveSudoku(&tempSud)) {
 					*s=tempSud;
 					return true;
-				}
-				else {
-					cout << "value " << k+1 << " wrong" <<endl;
 				}
 			}
 			tempSud = *s;

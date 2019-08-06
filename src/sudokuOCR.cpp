@@ -152,10 +152,6 @@ int mains() {
 
 				myfile.close();
 
-
-
-
-
 				fstream file("sudokuTxt/0.txt", std::ios_base::in);
 
 				int s[9][9] = {0};
