@@ -7,24 +7,24 @@
 //============================================================================
 
 #include <iostream>
+#include <omp.h>
 #include "sudoku.h"
 #include "readSudokuTxt.h"
 
 using namespace std;
 
-int main() {
+int mains() {
 	int size = numSudokuFiles();
 	sudoku s[size];
 	openFile(s);
-	for (int i=0; i<size; i++) {
-		printSudoku(s[i]);
-		solveSudoku(&s[i]);
-		cout << endl;
-		printSudoku(s[i]);
-		if(isComplete(s[i])) cout << i+1 << " Completed" << endl;
-		else cout << i+1 << "Not completed" << endl;
-		cout << endl << endl;
-	}
+
+	#pragma omp parallel for schedule (static)
+		for (int i=0; i<size; i++) {
+			printf("Thread %d computes %s\n",  omp_get_thread_num(), s[i].file.c_str());
+			solveSudoku(&s[i]);
+			if(isComplete(s[i])) cout << s[i].file << " Completed" << endl;
+			else cout << s[i].file << " Not completed" << endl;
+		}
 
 	return 0;
 }

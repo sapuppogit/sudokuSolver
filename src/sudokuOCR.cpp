@@ -24,7 +24,7 @@ typedef vector<double> Array;
 typedef vector<Array> Matrix;
 typedef vector<Matrix> Image;
 
-int mains() {
+int main() {
 	DIR *dir;
 	struct dirent *ent;
 	if ((dir = opendir ("sudokuImg")) != NULL) {
@@ -105,8 +105,9 @@ int mains() {
 
 				// Initialize tesseract to use English (eng) and the LSTM OCR engine.
 				ocr->Init(NULL, "digits", tesseract::OEM_LSTM_ONLY);
+				ocr->SetVariable("tessedit_char_whitelist","123456789");
 				// Set Page segmentation mode to PSM_AUTO (3)
-				ocr->SetPageSegMode(tesseract::PSM_SINGLE_CHAR);
+				ocr->SetPageSegMode(tesseract::PSM_AUTO);
 
 				for(int i=0; i<stats.rows; i++) {
 
