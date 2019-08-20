@@ -24,7 +24,7 @@ typedef vector<double> Array;
 typedef vector<Array> Matrix;
 typedef vector<Matrix> Image;
 
-int main() {
+int mains() {
 	DIR *dir;
 	struct dirent *ent;
 	if ((dir = opendir ("sudokuImg")) != NULL) {

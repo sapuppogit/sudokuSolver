@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <dirent.h>
 
 using namespace std;
@@ -35,15 +36,16 @@ void openFile(sudoku *s){
 			string str1 = namelist[i]->d_name;
 			if (str1 != "." && str1 != "..") {
 				fstream myfile("sudokuTxt/" + str1, std::ios_base::in);
-
 				if (myfile.is_open()) {
 
-					s[t] = createSudoku();
+					int x, y, k, width, height, dim;
+					myfile >> width >> height >> dim;
+					s[t] = createSudoku(dim, width, height);
 					s[t].file = str1;
-					int x, y, k;
 
-					while (myfile >> x >> y >> k)
+					while (myfile >> x >> y >> k){
 						insVal(&s[t], x, y, k);
+					}
 
 					myfile.close();
 
@@ -55,60 +57,5 @@ void openFile(sudoku *s){
 		}
 	}
 	free(namelist);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-	DIR *dir;
-	struct dirent *ent;
-	if ((dir = opendir ("sudokuTxt")) != NULL) {
-		int i=0;
-
-		// print all the files and directories within directory
-		while ((ent = readdir (dir)) != NULL) {
-			string str1 = ent->d_name;
-			if (str1 != "." && str1 != "..") {
-				fstream myfile("sudokuTxt/" + str1, std::ios_base::in);
-
-				if (myfile.is_open()) {
-
-					s[i] = createSudoku();
-					s[i].file = str1;
-					int x, y, k;
-
-					while (myfile >> x >> y >> k)
-						insVal(&s[i], x, y, k);
-
-					myfile.close();
-
-					i++;
-				}
-				else cout << "Unable to open file";
-			}
-		}
-		closedir (dir);
-	} else {
-	  // could not open directory
-	  perror ("");
-	}
-
-	*/
 
 }
